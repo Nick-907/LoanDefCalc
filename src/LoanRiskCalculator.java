@@ -71,7 +71,18 @@ class LoanRiskCalculator extends Client {
         risk -= 10.0; // Decrease risk for high income
         }
         return risk;
+}
 
+public void printClientReport(Client client){
+    System.out.println("Client Report:");
+    System.out.println("Name: " + client.getName());
+    System.out.println("Age: " + client.getAge());
+    System.out.println("Income: $" + client.getIncome());
+    System.out.println("Credit Score: " + client.getCreditscore());
+    System.out.println("Desired Loan Amount: $" + client.getLoanAmount());
+    double risk = assesRisk(client);
+    System.out.println("Assessed Risk Factor: " + risk);
+    isEligible(client);
 }
 
 }
