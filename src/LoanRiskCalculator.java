@@ -13,6 +13,31 @@ class LoanRiskCalculator {
     // Eligible otherwise (risk <= 40)
     return true;
     }
+
+    public String EligibilityMessage (Client client){
+        double risk = assesRisk(client);
+        if(client.getAge()<18){
+        return "Client is not eligible due to being underage.";
+    }
+    if(client.getCreditscore()<600){
+        return "Client is not eligible due to low credit score.";
+    }
+    if(client.getLoanAmount()>client.getIncome()*5){
+        return "Client is not eligible due to high loan amount relative to income.";
+    }
+    if(risk>40.0){
+        return "Client is not eligible due to high risk factor.";
+    }
+    else if (risk>20.0){
+        return "Client is eligible but with a high risk factor.";
+    }
+    else if (risk>10.0){
+        return "Client is eligible but with a moderate risk factor.";
+    }
+    else {
+        return "Client is eligible for the loan.";
+    }
+}
     
 
     public double assesRisk (Client client){
@@ -66,7 +91,7 @@ public String printClientReport(Client client){
     sb.append("Desired Loan Amount: $").append(client.getLoanAmount()).append("\n");
     double risk = assesRisk(client);
     sb.append("Assessed Risk Factor: ").append(risk).append("\n");
-    isEligible(client);
+    sb.append(EligibilityMessage(client)).append("\n");
     return sb.toString();
 }
         public void saveClientInfo(){
