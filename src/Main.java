@@ -6,7 +6,7 @@ class Main {
         int numClients = scanner.nextInt();
         ArrayList <Client> clients = new ArrayList<>();
         for(int i = 0; i < numClients ; i++){ // creates the clients based on user input.
-            System.out.println("\nEnter details for client " + (i+1) + ":");
+            System.out.println("\nEnter details for client " + (i+1) + "-");
 
             System.out.print("Name: ");
             scanner.nextLine(); // consume leftover newline
