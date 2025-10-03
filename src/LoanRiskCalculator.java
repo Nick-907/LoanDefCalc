@@ -1,4 +1,4 @@
-class LoanRiskCalculator extends Client {
+class LoanRiskCalculator {
     public boolean isEligible(Client client){//Checking for some factors about the client to determine if they are eligible for a loan.
         double risk = assesRisk(client); 
         if(client.getAge()<18){
