@@ -1,36 +1,19 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 class LoanRiskCalculator {
     public boolean isEligible(Client client){//Checking for some factors about the client to determine if they are eligible for a loan.
-        double risk = assesRisk(client); 
-        if(client.getAge()<18){
-         System.out.println("Client is not eligible due to being underage.");
-            return false;
-        }
-        if(client.getCreditscore()<600){
-         System.out.println("Client is not eligible due to low credit score.");
-            return false;
-        }
-        if(client.getLoanAmount()>client.getIncome()*5){
-         System.out.println("Client is not eligible due to high loan amount relative to income.");
-            return false;
-        }
-        if(risk>40.0){
-         System.out.println("Client is not eligible due to high risk factor.");
-            return false;
-        }
-        else if (risk > 20.0 && risk<=40.0){
-         System.out.println("Client is eligible but with a high risk factor.");
-            return true;
-        }
-        else if (risk>10.0 && risk<=20.0){
-         System.out.println("Client is eligible but with a moderate risk factor.");
-            return true;
-        }
-        else if (risk<=10.0){
-        System.out.println("Client is eligible for the loan.");
-        return true;
-        }
-        return false;
+        double risk = assesRisk(client);
+
+    if (client.getAge() < 18) return false;
+    if (client.getCreditscore() < 600) return false;
+    if (client.getLoanAmount() > client.getIncome() * 5) return false;
+    if (risk > 40.0) return false;
+
+    // Eligible otherwise (risk <= 40)
+    return true;
     }
+    
 
     public double assesRisk (Client client){
         double risk = 0.0; // Base risk score
@@ -73,16 +56,28 @@ class LoanRiskCalculator {
         return risk;
 }
 
-public void printClientReport(Client client){
-    System.out.println("Client Report:");
-    System.out.println("Name: " + client.getName());
-    System.out.println("Age: " + client.getAge());
-    System.out.println("Income: $" + client.getIncome());
-    System.out.println("Credit Score: " + client.getCreditscore());
-    System.out.println("Desired Loan Amount: $" + client.getLoanAmount());
+public String printClientReport(Client client){
+    StringBuilder sb = new StringBuilder();
+    sb.append("Client Report:\n");
+    sb.append("Name: ").append(client.getName()).append("\n");
+    sb.append("Age: ").append(client.getAge()).append("\n");
+    sb.append("Income: $").append(client.getIncome()).append("\n");
+    sb.append("Credit Score: ").append(client.getCreditscore()).append("\n");
+    sb.append("Desired Loan Amount: $").append(client.getLoanAmount()).append("\n");
     double risk = assesRisk(client);
-    System.out.println("Assessed Risk Factor: " + risk);
+    sb.append("Assessed Risk Factor: ").append(risk).append("\n");
     isEligible(client);
+    return sb.toString();
 }
+        public void saveClientInfo(){
+    try {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("clients.csv"));
+        writer.close();
+
+    }
+    catch (IOException e){
+        e.printStackTrace();
+    }
+        }
 
 }
