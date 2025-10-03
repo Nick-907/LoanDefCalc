@@ -27,11 +27,12 @@ class Main {
             Client client = new Client(name, age, income, creditScore, loanAmount);
             clients.add(client);
         }
-
         LoanRiskCalculator calculator = new LoanRiskCalculator();
         for( Client client : clients){ // prints the report for each client.
             calculator.printClientReport(client);
+            calculator.saveClientInfo(client);
             System.out.println("--------------------------");
+
         }
     }
 }

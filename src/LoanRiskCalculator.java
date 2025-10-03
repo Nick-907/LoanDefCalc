@@ -94,9 +94,10 @@ public String printClientReport(Client client){
     sb.append(EligibilityMessage(client)).append("\n");
     return sb.toString();
 }
-        public void saveClientInfo(){
+public void saveClientInfo(Client client){
     try {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("clients.csv"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("Data/clients.csv",true));
+        writer.write(printClientReport(client));
         writer.close();
 
     }
